@@ -81,13 +81,25 @@ class ViewController: UIViewController {
 
         userNameValid.bind(to: passwordField.rx.isEnabled).disposed(by:disposeBag)
 
-        userNameValid.bind(to: userNameField.rx.isHidden).disposed(by:disposeBag)
+        userNameValid.bind(to: userNameValidLable.rx.isHidden).disposed(by:disposeBag)
 
+        passwordValid.bind(to: passwordValidLable.rx.isHidden).disposed(by: disposeBag)
         
-
-
-
-
+        everythingValid.bind(to: button.rx.isEnabled).disposed(by: disposeBag)
+        
+        button.rx.tap.subscribe(onNext: {[weak self] _ in self?.showAlert()})
+        
+    }
+    
+    func showAlert() {
+        let alertView = UIAlertView(
+            title: "RxExample",
+            message: "This is wonderful",
+            delegate: nil,
+            cancelButtonTitle: "OK"
+        )
+        
+        alertView.show()
     }
 
     func initializeUILayout() {
