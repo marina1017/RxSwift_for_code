@@ -66,10 +66,13 @@ class ViewController: UIViewController {
             make.centerX.equalTo(self.view)
         }
 
+       //観測可能なシーケンスのいずれかが要素を生成するたびに、セレクタ関数を使用して、指定された観測可能なシーケンスを1つの観測可能なシーケンスにマージします。
     Observable.combineLatest(number1.rx.text.orEmpty,number2.rx.text.orEmpty,number3.rx.text.orEmpty) { textValue1, textValue2, textValue3 -> Int in
             return (Int(textValue1) ?? 0) + (Int(textValue2) ?? 0) + (Int(textValue3) ?? 0)
         }
+        //入ってきた値をStringに変換する関数
         .map { $0.description}
+        //新しいサブスクリプションを作成し、オブザーバに要素を送信します。
         .bind(to: label.rx.text)
         .disposed(by: disposeBag)
     }
